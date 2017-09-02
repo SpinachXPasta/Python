@@ -42,5 +42,5 @@ def deep_count(p):
 #print deep_count([1, [1, 2, [3, 4]]])
 #>>> 7
 
-print deep_count([[[[[[[[1, 2, 3]]]]]]]])
+print (deep_count([[[[[[[[1, 2, 3]]]]]]]]))
 #>>> 10
