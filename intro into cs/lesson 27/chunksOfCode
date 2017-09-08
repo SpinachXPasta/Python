@@ -1,0 +1,19 @@
+def remove_tags(link):
+    output = []
+    count = link.find('>')
+    while count > 0:
+        print count
+        link = link[count:]
+        print link
+        print get_tag(link)
+        output.append(get_tag(link))
+        count = link.find('>',count)
+    return output
+        
+def get_tag(page):    
+    page = page[page.find('>'):]
+    start_link = page.find('>')
+    start_quote = page.find('',start_link)
+    end_quote = page.find('<',start_quote+1)
+    url = page[start_quote+1:end_quote]
+    return url
