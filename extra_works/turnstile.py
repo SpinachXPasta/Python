@@ -32,15 +32,46 @@ def fix_turnstile_data(filenames):
     Sample input file: turnstile_110528.txt
     Sample updated file: solution_turnstile_110528.txt
     '''
+    bigdata = []
+    data = []
+    linex = ""
+    count = 3
+    first = ""
+    second = ""
+    third = ""
     with open('turnstile_110528.txt',"r") as copy:
         infile = csv.reader(copy, delimiter = ',')
-        with open('updated_turnstile_110528.txt',"w") as paste:
-            outfile = csv.writer(paste)
-            for file in infile:
-                for f in range(3,len(file),5):
-                    writer = (file[0:4] + file[f:f+5])
-                    outfile.writerow(writer)
+        for every in infile:
+            for e in every:
+                if e[0] == 'A':
+                    data = []
+                    count = 0
+                    first = e
+                elif e[0] == 'R' and e[1] == '0':
+                    second = e 
+                elif len(e) > 3 and e[2] == '-' and e[3] == '0' and e[4] == '0':
+                    third = e
+                data.append(e.strip())
+                #if count < 7:
+                    #linex += ","
+                count += 1
+                if count == 8:
+                    #data.append(linex)
+                    bigdata.append(data)
+                    #linex = first + ","
+                    data = []
+                    data.append(first)
+                    data.append(second)
+                    data.append(third)
+                    count = 3
             
+    with open('updated_turnstile_110528.txt',"w") as paste:
+        outfile = csv.writer(paste)
+        for big in bigdata:
+                outfile.writerow(big)
+            
+    print third
+    #print bigdata       
     copy.close()
     paste.close()
     
