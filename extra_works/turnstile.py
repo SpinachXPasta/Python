@@ -39,42 +39,46 @@ def fix_turnstile_data(filenames):
     first = ""
     second = ""
     third = ""
-    with open('turnstile_110528.txt',"r") as copy:
-        infile = csv.reader(copy, delimiter = ',')
-        for every in infile:
-            for e in every:
-                if e[0] == 'A':
-                    data = []
-                    count = 0
-                    first = e
-                elif e[0] == 'R' and e[1] == '0':
-                    second = e 
-                elif len(e) > 3 and e[2] == '-' and e[3] == '0' and e[4] == '0':
-                    third = e
-                data.append(e.strip())
+    d = 0
+    while d < 2:
+        with open(filenames[d],"r") as copy:
+            infile = csv.reader(copy, delimiter = ',')
+            for every in infile:
+                for e in every:
+                    if e[0] == 'A' and e[1] == '0':
+                        data = []
+                        count = 0
+                        first = e
+                    elif e[0] == 'R' and e[1] == '0':
+                        second = e 
+                    elif len(e) > 3 and e[2] == '-' and e[3] == '0' and e[4] == '0':
+                        third = e
+                    data.append(e.strip())
                 #if count < 7:
                     #linex += ","
-                count += 1
-                if count == 8:
+                    count += 1
+                    if count == 8:
                     #data.append(linex)
-                    bigdata.append(data)
+                        bigdata.append(data)
                     #linex = first + ","
-                    data = []
-                    data.append(first)
-                    data.append(second)
-                    data.append(third)
-                    count = 3
+                        data = []
+                        data.append(first)
+                        data.append(second)
+                        data.append(third)
+                        count = 3
             
-    with open('updated_turnstile_110528.txt',"w") as paste:
-        outfile = csv.writer(paste)
-        for big in bigdata:
-                outfile.writerow(big)
+            with open(''.join(['updated_',filenames[d]]),"w") as paste:
+                outfile = csv.writer(paste)
+                for big in bigdata:
+                    outfile.writerow(big)
+                bigdata = []
+                    
+            d += 1
             
-    print third
     #print bigdata       
-    copy.close()
-    paste.close()
-    
+            copy.close()
+            paste.close()
+
                    
                     
   
