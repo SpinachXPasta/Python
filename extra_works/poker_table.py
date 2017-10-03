@@ -1,3 +1,6 @@
+##Author Siddhartha Pachhaiu
+##Euler 54! gives accurate answer, can determine which is better among two poker hands
+
 
 def poker(file):
     infile = open(file,'r')
